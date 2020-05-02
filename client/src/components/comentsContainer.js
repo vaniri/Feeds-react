@@ -77,3 +77,17 @@ class CommentsContainer extends Component {
 }
 
 export default CommentsContainer;
+
+
+class Foo {
+    huipizda() {
+        console.log("Меня вызвали!");
+    }
+}
+
+class Bar {
+    dzhigurda() {
+        let foo = new Foo();
+        foo.huipizda();
+    }
+}

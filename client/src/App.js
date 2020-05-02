@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, userParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/navBar';
 import NewsContainer from './components/newsContainer';
@@ -13,10 +13,10 @@ function App () {
       <NavBar />
       <Switch>
         <Route path='/'>
-          <Home logInhandler={logInhandler} />
+          <Home />
         </Route>
         <Route>
-        <NewsContainer url={url}/>
+        <NewsContainer />
         </Route>
       </Switch>
     </div>

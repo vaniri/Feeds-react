@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Typography, Breadcrumbs, link } from '@material-ui/core';
-import { HomeIcon, WhatshotIcon, GrainIcon }from '@material-ui/icons';
+import { withRouter } from 'react-router-dom';
+import { Typography, Breadcrumbs, Link } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import GrainIcon from '@material-ui/icons/Grain';
 
 const NavBar = ({ location }) => {
     return (
         <Breadcrumbs aria-label='breadcrumb'>
         <Link color='inherit' 
             href='/login' 
-            className={`nav_item ${locatin.pathname === '/login' ? 'active' : ""}`}>
-          <HomeIcon className={classes.icon} />
+            className={`nav_item ${location.pathname === '/login' ? 'active' : ""}`}>
+          <HomeIcon />
           Log-in
         </Link>
         <Link
@@ -17,11 +19,11 @@ const NavBar = ({ location }) => {
           href='/'
           className={`nav_item ${location.pathname === '/' ? 'active' : ""}`}
         >
-          <WhatshotIcon className={classes.icon} />
+          <WhatshotIcon />
           Home
         </Link>
-        <Typography color='textPrimary' className={classes.link}>
-          <GrainIcon className={classes.icon} />
+        <Typography color='textPrimary'>
+          <GrainIcon />
           Breadcrumb
         </Typography>
       </Breadcrumbs>

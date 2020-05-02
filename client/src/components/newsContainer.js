@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container } from '@material-ui/core';
 
-const NewsContainer = (url) => {
+const NewsContainer = ({ source }) => {
 
     let { news, setNews } = useState("");
 
-    useEffect = () => {
-        showNews(url);
-    }
+    useEffect(showNews);
 
-    const showNews = async (url) => {
+    const showNews = async () => {
         try {
-            let news = await axios.get(url);
+            let res = await axios.get(`/api/source/${source}`);
             if (res.mesage === "OK") {
                 console.log("Successfully got news data");
-                setNews(news);
+                setNews(res);
             } else {
                 console.log("Fail get news!");
             }
@@ -25,7 +23,8 @@ const NewsContainer = (url) => {
     }
     return (
         <div>
-            {news.map(news => {
+            {
+            news.map(news => (
                 <Container className="news-info" maxWidth="sm">
                     <h6>{news.headline}</h6>
                     <p>{news.author}</p>
@@ -33,10 +32,11 @@ const NewsContainer = (url) => {
                     <p>{news.summary}</p>
                     <a href={news.url}>read more...</a>
                 </Container>
-            })
+            ))
             }
         </div>
     )
 }
 
 export default NewsContainer;
+

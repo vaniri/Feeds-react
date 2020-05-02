@@ -1,75 +1,80 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, FilledInput, Button } from '@material-ui/core';
+import { Avatar, Button, TextField, Grid, Typography } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
-const CreateUserForm = props => {
-
-    const { username, setUsername } = useState("");
-    const { email, setEmail } = useState("");
-    const { password, setPassword } = useState("");
-    const { logInHandler } = props;
-
-    let createUser = async () => {
-        try {
-            let res = await axios.post('/api/users', { username, email, password });
-            if (res.message === "OK") {
-                console.log("User create successfully");
-                localStorage.token = res.data.token;
-                localStorage.username = res.data.username;
-                localStorage.userId = res.data.userId;
-                logInHandler();
-            } else {
-                console.log("FAIL creating new user");
-            }
-        } catch (err) {
-            console.log(`FAIL creating new user ${err}`);
-        }
-    }
-
-    let handleSubmit = event => {
-        event.preventDefault();
-        createUser();
-    }
+const CreateUserForm = ({ classes }) => {
 
     return (
-        <div>
-            <Container maxWidth="sm">>
-                <FilledInput
-                    autoFocus
-                    placeholder="username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    require
-                >
-                </FilledInput>
-                <FilledInput
-                    color="primary"
-                    autoFocus
-                    placeholder="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    require
-                >
-                </FilledInput>
-                <FilledInput
-                    color="primary"
-                    autoFocus
-                    placeholder="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    require
-                >
-                </FilledInput>
+        <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Sign up
+        </Typography>
+            <form className={classes.form} noValidate>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            autoComplete="fname"
+                            name="firstName"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="firstName"
+                            label="First Name"
+                            autoFocus
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="lastName"
+                            label="Last Name"
+                            name="lastName"
+                            autoComplete="lname"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                    </Grid>
+                </Grid>
                 <Button
-                    size="small"
                     type="submit"
-                    onSubmit={handleSubmit}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
                 >
-                </Button>
-            </Container>
+                    Sign Up
+          </Button>
+            </form>
         </div>
-    )
+    );
 }
 
-export default CreateUserForm
+export default CreateUserForm;

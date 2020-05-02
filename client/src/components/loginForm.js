@@ -1,73 +1,52 @@
-import React, { usestate } from 'react';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
-import { Container, FilledInput, Button } from '@material-ui/core';
+import React from 'react';
+import { Avatar, Button, TextField, Typography } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-const LoginForm = props => {
-    const { email, setEmail } = useState("");
-    const { password, setPassword } = useState("");
-    const { loginHandler } = props;
-
-    let logInUser = async () => {
-        try {
-            const res = await axios.post('api/user/login', { email, password });
-            if (res.message === "OK") {
-                console.log("user Log in successfully");
-                localStorage.token = res.data.token;
-                localStorage.userId = res.data.userId;
-                localStorage.username = res.data.userName;
-                loginHandler();
-            } else {
-                console.log("FAIL log in");
-            }
-        } catch (err) {
-            console.log(`FAIL log in: ${err}`);
-        }
-    }
-
-    let handleSubmit = event => {
-        event.preventDefault();
-        logInUser();
-    }
-
+const SignInSide = ({ classes }) => {
+  
     return (
-        <div>
-            <Container maxWidth="sm">
-                <FilledInput
-                    color="primary"
-                    autoFocus
-                    type="text"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="email"
-                    required
-                >
-                </FilledInput>
-                <FilledInput
-                    color="primary"
-                    autoFocus
-                    type="text"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="password"
-                    required
-                >
-                </FilledInput>
-                <FilledInput
-                    color="primary"
-                    autoFocus
-                    type="text"
-                    onSubmit={this.handleSubmit}
-                    placeholder="email"
-                    required
-                >
-                </FilledInput>
-                <Button size="small" type="submit" onSubmit={handleSubmit}>Log in
-                </Button>
-            </Container>
-        </div>
-    )
-}
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+            </form>
+          </div>
+    );
+  }
 
-export default LoginForm;
-
+  export default SignInSide;
