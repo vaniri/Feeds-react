@@ -4,7 +4,36 @@ import { Avatar, Button, TextField, Grid, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
-const CreateUserForm = ({ classes }) => {
+const CreateUserForm = ({ classes, logInHandler }) => {
+
+    const [ username, setUsername ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+
+    let createUser = async () => {
+        try {
+            console.log(username, email, password);
+            let res = await axios.post('http://localhost:3001/user', { username, email, password });
+            console.log(res);
+            if (res.data.message === "OK") {
+                console.log("User create successfully");
+                localStorage.token = res.data.token;
+                localStorage.username = res.data.username;
+                localStorage.userId = res.data.userId;
+                logInHandler();
+            } else {
+                console.log("FAIL creating new user", res.err);
+            }
+        } catch (err) {
+            console.log(`FAIL creating new user ${err}`);
+        }
+    }
+
+    let handleSubmit = event => {
+        console.log(1111);
+        event.preventDefault();
+        createUser();
+    }
 
     return (
         <div className={classes.paper}>
@@ -14,29 +43,18 @@ const CreateUserForm = ({ classes }) => {
             <Typography component="h1" variant="h5">
                 Sign up
         </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            autoComplete="fname"
-                            name="firstName"
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="firstName"
-                            label="First Name"
-                            autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                         <TextField
                             variant="outlined"
                             required
                             fullWidth
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
-                            autoComplete="lname"
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            onChange={e => setUsername(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -48,6 +66,7 @@ const CreateUserForm = ({ classes }) => {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -60,6 +79,7 @@ const CreateUserForm = ({ classes }) => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </Grid>
                 </Grid>
@@ -69,6 +89,7 @@ const CreateUserForm = ({ classes }) => {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onSubmit={handleSubmit}
                 >
                     Sign Up
           </Button>

@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 let Parser = require('rss-parser');
 let parser = new Parser();
-const color = require('./utils')
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/news', {
     useNewUrlParser: true,
@@ -18,7 +17,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./client/build'));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "GET, OPTIONS, POST, DELETE, PATCH");
+    next();
+});
 
 app.route('/source/:source')
     .get(async (req, res) => {
@@ -73,7 +78,7 @@ app.route('/user')
         try {
             req.body.password = await argon2.hash(req.body.password);
             let result = await db.User.create(req.body);
-            let UserId = result.id;
+            let UserId = result._id;
             res.json({ message: "OK", result, userId: UserId, token: makeToken(UserId) });
         } catch (err) {
             console.log("Error creating new user", err);
@@ -91,7 +96,8 @@ function makeToken(userId) {
 app.post('/login',
     async (req, res) => {
         try {
-            let user = await db.User.findOne({ username: req.body.username });
+            console.log(req.body.email);
+            let user = await db.User.findOne({ email: req.body.email});
             console.log(user);
             if (!user) {
                 console.log("No user found!");

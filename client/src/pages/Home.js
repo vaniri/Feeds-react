@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
     },
     paper: {
-        margin: theme.spacing(4, 6),
+        margin: theme.spacing(8, 4),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -45,6 +45,7 @@ const Home = () => {
         localStorage.userId = "";
     }
 
+
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
@@ -52,10 +53,10 @@ const Home = () => {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <LogInForm
                     classes={classes}
-                    logoutHandler={() => { setAuthorized(false); cleanStorage(); }} /> :
+                    logInHandler={() => setAuthorized(true)} /> 
                 <CreateUserForm
                     classes={classes}
-                    loginHandler={() => setAuthorized(true)} />
+                    logInHandler={() => setAuthorized(true)} />
             </Grid>
         </Grid>
     )
