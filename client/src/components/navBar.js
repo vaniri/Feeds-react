@@ -1,33 +1,44 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Typography, Breadcrumbs, Link } from '@material-ui/core';
+import { makeStyles, Typography, Breadcrumbs, Link } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
+import '../style/index.css';
 
-const NavBar = ({ location }) => {
-    return (
-        <Breadcrumbs aria-label='breadcrumb'>
-        <Link color='inherit' 
-            href='/login' 
-            className={`nav_item ${location.pathname === '/login' ? 'active' : ""}`}>
-          <HomeIcon />
-          Log-in
+const useStyles = makeStyles((theme) => ({
+  link: {
+    display: 'flex',
+  },
+  icon: {
+    marginRight: theme.spacing(0.5),
+    width: 20,
+    height: 20,
+  },
+}));
+
+const NavBar = () => {
+  const classes = useStyles();
+
+  return (
+    <Breadcrumbs id="nav" aria-label="breadcrumb">
+        <Link color="inherit"
+        className={`nav_item ${window.location.pathname === '/' ? 'active' : ""}`} href='/home'>
+        <HomeIcon className={classes.icon} />
+        Home
         </Link>
-        <Link
-          color='inherit'
-          href='/'
-          className={`nav_item ${location.pathname === '/' ? 'active' : ""}`}
-        >
-          <WhatshotIcon />
-          Home
-        </Link>
-        <Typography color='textPrimary'>
-          <GrainIcon />
-          Breadcrumb
-        </Typography>
-      </Breadcrumbs>
-    )
+      <Link
+        color="inherit"
+        className={`nav_item ${window.location.pathname === '/sources' ? 'active' : ""}`} href='/sources'>
+        <WhatshotIcon className={classes.icon} />
+        Sources
+      </Link>
+      <Typography color="textPrimary" className={classes.link}>
+        <GrainIcon className={classes.icon} />
+        Breadcrumb
+      </Typography>
+    </Breadcrumbs>
+  );
 }
 
-export default withRouter(NavBar);
+export default NavBar;
