@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Container } from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 
-const NewsContainer = ({ source }) => {
-
-    let { news, setNews } = useState("");
-
-    useEffect(showNews);
-
-    const showNews = async () => {
+class AllNewsContainer extends Component {
+    constructor (props) {
+        super (props);
+        this.state = { news: []}
+    }
+    
+    showNews = async () => {
         try {
             let res = await axios.get(`/api/source/${source}`);
             if (res.mesage === "OK") {
                 console.log("Successfully got news data");
-                setNews(res);
+                this.setState = { news: res.data.news};
             } else {
                 console.log("Fail get news!");
             }
@@ -21,22 +21,28 @@ const NewsContainer = ({ source }) => {
             console.log(`Fail get news: ${err}`);
         }
     }
+
+    componentDidMount() {
+        this.showNews();
+    }
+
+    render() {
     return (
         <div>
-            {
-            news.map(news => (
-                <Container className="news-info" maxWidth="sm">
+            {this.news.map(news => (
+                <Grid className="news-info" maxWidth="sm">
                     <h6>{news.headline}</h6>
                     <p>{news.author}</p>
                     <p>{news.pubDate}</p>
                     <p>{news.summary}</p>
                     <a href={news.url}>read more...</a>
-                </Container>
+                </Grid>
             ))
             }
         </div>
     )
 }
+}
 
-export default NewsContainer;
+export default AllNewsContainer;
 

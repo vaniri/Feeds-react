@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const NewsSchema = new Schema ({
-    source: String,
     headline: String,
     author: String,
     pubDate:  String,
@@ -10,7 +9,8 @@ const NewsSchema = new Schema ({
     url: {
         type: String,
         unique: true
-    }
+    },
+    source: { type: Schema.Types.ObjectId, ref: 'Source' }
 });
 
 const News = mongoose.model('News', NewsSchema);

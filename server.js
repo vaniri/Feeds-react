@@ -28,10 +28,9 @@ app.use(function (req, res, next) {
 app.route('/source/:source')
     .get(async (req, res) => {
         try {
-            let news = await db.News.find({ "source": req.params.source }).lean();
-            let sourcesNames = await db.News.find().distinct("source").lean();
-            let sources = sourcesNames.map(name => ({ name }));
-            res.json({ message: "OK", sources: sources, news: news });
+            let source = await db.Source.findById(req.params.id).lean();
+            let news = await db.News.find({ source: req.params.id }).lean();
+            res.json({ message: "OK", source, news });
         } catch (err) {
             console.log("Error find news", err);
             res.json({ message: "FAIL", reason: err });
@@ -41,15 +40,22 @@ app.route('/source/:source')
 app.route('/sources')
     .get(async (req, res) => {
         try {
-            let sourcesNames = await db.News.find().distinct("source").lean();
-            let sources = sourcesNames.map(name => ({ name }));
+            let sources = await db.Source.find().lean();
             res.json({ message: "OK", sources })
         } catch (err) {
             console.log("Error find source", err);
             res.json({ message: "FAIL", reason: err });
         }
     })
-
+    .post(async (req, res) => {
+        try {
+            await getFeed(req.url);
+            res.json({ message: "OK", source });
+        } catch (err) {
+            console.log("FAIL create a source", err);
+            res.json({ message: "FAIL", reason: err});
+        }
+    })
 
 app.route('/news/:id')
     .get(async (req, res) => {
@@ -96,9 +102,7 @@ function makeToken(userId) {
 app.post('/login',
     async (req, res) => {
         try {
-            console.log(req.body.email);
-            let user = await db.User.findOne({ email: req.body.email});
-            console.log(user);
+            let user = await db.User.findOne({ email: req.body.email });
             if (!user) {
                 console.log("No user found!");
                 res.json({ message: "FAIL", reason: "No user found" });
@@ -133,39 +137,42 @@ app.route('/comments')
             }
         });
 
-
-async function getFeed() {
-    const urls = [
-        'http://feeds.foxnews.com/foxnews/latest',
-        'http://feeds.bbci.co.uk/news/world/rss.xml',
-        'https://news.ycombinator.com/rss',
-        'http://www.reddit.com/.rss',
-        'https://feeds.npr.org/510298/podcast.xml'
-    ];
-    urls.forEach(async url => {
+let getFeed = async (url) => {
         try {
             const news = await parser.parseURL(url);
+            await db.Source.create({ "name": news.title, "img": news.image.url, "url": news.link});
             insertNews(news);
-        } catch (error) {
+        } catch (err) {
+            if (err.code !== 11000) { //11000 is the duplicate key error code
+                throw err;
+            }
             console.log("Error updating feed", url, error);
-        }
+        } 
+}
+
+let updateFeeds = async () => {
+    let sources = await db.Source.find().lean();
+    sources.forEach(async source => {
+        const news = await parser.parseURL(source.url);
+        insertNews(news);
     });
 }
 
-getFeed();
+updateFeeds();
 setInterval(getFeed, 100 * 1000);
 
 async function insertNews(news) {
     try {
         news.items.forEach(async (item) => {
             try {
-                await db.News.create({ "source": news.title, "headline": item.title, "author": item.creator, "pubDate": item.pubDate, "summary": item.contentSnippet, "url": item.link });
+                await db.News.create({ "headline": item.title, "author": item.creator, "pubDate": item.pubDate, "summary": item.contentSnippet, "url": item.link });
             } catch (err) {
                 if (err.code !== 11000) { //11000 is the duplicate key error code
                     throw err;
                 }
             }
         });
+
     } catch (err) {
         console.log("Error find comments", err);
     }

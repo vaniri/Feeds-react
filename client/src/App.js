@@ -4,6 +4,7 @@ import './App.css';
 import NavBar from './components/navBar';
 import Home from './pages/Home';
 import Sources from './pages/Sources';
+import News from './pages/News';
 
 function App() {
 
@@ -12,6 +13,9 @@ function App() {
       <div className="App">
         <NavBar />
         <Switch>
+          <Route path='/source/:source'>
+            <News />
+          </Route>
           <Route path='/sources'>
             <Sources />
           </Route>

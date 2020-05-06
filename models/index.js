@@ -1,9 +1,11 @@
-const News = require('./news.model');
-const User = require('./user.model');
-const Comment = require('./comment.model')
+const News = require('./news');
+const User = require('./user');
+const Comment = require('./comment')
+const Source = require('./source');
 
 module.exports = {
     News,
     User,
-    Comment
+    Comment,
+    Source
 };
