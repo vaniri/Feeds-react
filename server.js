@@ -6,7 +6,6 @@ const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 let Parser = require('rss-parser');
-let parser = new Parser();
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/news', {
     useNewUrlParser: true,
@@ -28,9 +27,9 @@ app.use(function (req, res, next) {
 app.route('/source/:source')
     .get(async (req, res) => {
         try {
-            let source = await db.Source.findById(req.params.id).lean();
+            let source = await db.Source.findById(req.params.source).lean();
             let news = await db.News.find({ source: req.params.id }).lean();
-            res.json({ message: "OK", source, news });
+            res.json({ message: "OK", source: source, news: news });
         } catch (err) {
             console.log("Error find news", err);
             res.json({ message: "FAIL", reason: err });
@@ -49,11 +48,11 @@ app.route('/sources')
     })
     .post(async (req, res) => {
         try {
-            await getFeed(req.url);
-            res.json({ message: "OK", source });
+            await getFeed(req.body);
+            res.json({ message: "OK" });
         } catch (err) {
             console.log("FAIL create a source", err);
-            res.json({ message: "FAIL", reason: err});
+            res.json({ message: "FAIL", reason: err });
         }
     })
 
@@ -138,28 +137,35 @@ app.route('/comments')
         });
 
 let getFeed = async (url) => {
-        try {
-            const news = await parser.parseURL(url);
-            await db.Source.create({ "name": news.title, "img": news.image.url, "url": news.link});
-            insertNews(news);
-        } catch (err) {
-            if (err.code !== 11000) { //11000 is the duplicate key error code
-                throw err;
-            }
-            console.log("Error updating feed", url, error);
-        } 
+    try {
+        let parser = new Parser();
+        const news = await parser.parseURL(url.url);
+        await db.Source.create({ "name": news.title, "img": news.image ? news.image.url : "", "url": url.url });
+        insertNews(news);
+    } catch (err) {
+        console.log("Error updating feed", url, err);
+        if (err.code !== 11000) { //11000 is the duplicate key error code
+            throw err;
+        }
+    }
 }
 
 let updateFeeds = async () => {
     let sources = await db.Source.find().lean();
     sources.forEach(async source => {
-        const news = await parser.parseURL(source.url);
-        insertNews(news);
+        try {
+            let parser = new Parser();
+            const news = await parser.parseURL(source.url);
+            insertNews(news);
+            console.log("Successfully update feeds");
+        } catch (err) {
+            console.log("FAIL updating feed", source.url, err);
+        }
     });
 }
 
 updateFeeds();
-setInterval(getFeed, 100 * 1000);
+setInterval(updateFeeds, 100 * 1000);
 
 async function insertNews(news) {
     try {

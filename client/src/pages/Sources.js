@@ -2,11 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SourcesContainer from '../components/sourcesContainer';
+import AddFeedForm from '../components/addFeedContainer';
+import '../style/index.css';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100vh',
+       width: '100%',
     },
     image: {
         backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -22,8 +24,13 @@ const Sources = () => {
     const classes = useStyles();
 
     return (
-        <Grid container component="main" className={classes.root}>
-            <SourcesContainer />
+        <Grid container component="main" className={classes.root} id="source">
+            <Grid>
+                <SourcesContainer />
+            </Grid>
+            <Grid>
+                <AddFeedForm />
+            </Grid>
         </Grid>
     )
 

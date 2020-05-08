@@ -20,16 +20,50 @@ button {
 
 #sources_container {
   flex-grow: 1;
-  max-width: 30%;
   height: auto;
   margin: 2em;
-}
-
-#demo {
-  background-color: theme.palette.background.paper;
 }
 
 #nav {
     padding: 1em;
     border-bottom: solid 0.05em gray;
+}
+
+#source {
+  display: grid;
+  grid-template-columns: 70% 30%;
+
+}
+
+#source-container {
+  width: 100%;
+}
+
+.MuiListItemText-root {
+  text-align: start;
+  margin: 0 1em;
+  font-size: 20px;
+}
+
+#news {
+  padding: 0;
+}
+
+h6 {
+  font-size: 15px;
+  line-height: 0;
+}
+
+.MuiSvgIcon-root {
+  margin-left: 1em;
+}
+
+.news-link{
+  text-decoration: none;
+  color: rgb(4, 62, 66);
+}
+
+.news-link:hover{
+  text-decoration: none;
+  color: rgb(7, 127, 136);
 }

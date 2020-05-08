@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/navBar';
 import Home from './pages/Home';
@@ -8,13 +8,20 @@ import News from './pages/News';
 
 function App() {
 
+  let AllNews = () => {
+    let { source } = useParams();
+    return (
+        <News source={source} />
+    )
+    }
+
   return (
     <Router>
       <div className="App">
         <NavBar />
         <Switch>
           <Route path='/source/:source'>
-            <News />
+            <AllNews />
           </Route>
           <Route path='/sources'>
             <Sources />

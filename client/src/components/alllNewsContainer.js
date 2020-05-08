@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Grid } from '@material-ui/core';
+import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import '../style/index.css';
 
 class AllNewsContainer extends Component {
     constructor(props) {
         super(props);
-        this.State = { news: [] }
+        this.state = { news: [] };
+        this.source = props;
     }
 
     showNews = async () => {
         try {
-            console.log(window.location.pathname);
-            let res = await axios.get(`/api/source/${window.location.pathname}`);
-            if (res.mesage === "OK") {
+            let res = await axios.get(`http://localhost:3001/source/${this.source.source}`)
+            if (res.data.message === "OK") {
+                console.log(res.data.news)
                 console.log("Successfully got news data");
-                this.setState = { news: res.data.news };
+                this.setState({ news: res.data.news });
+                console.log(this.state.news)
             } else {
                 console.log("Fail get news!");
             }
@@ -28,15 +32,26 @@ class AllNewsContainer extends Component {
     }
 
     render() {
-        console.log(window.location.pathname);
+        console.log(this.state.news)
         return (
             <div>
-                {this.news.map(news => (
-                    <Grid className="news-info" maxWidth="sm">
-                        <h6>{news.headline}</h6>
-                        <a href={`/news/${news._id}`}>read more...</a>
+                <Grid container spacing={0}>
+                    <Grid item xs={12} md={12}>
+                        <div className="demo">
+                            <List>
+                                {this.state.news.map(news => (
+                                    <ListItem className="news-container" id="news">
+                                        <MoreHorizIcon />
+                                        <ListItemText
+                                            primary={<a className="news-link" href={`/news/${news._id}`}><h6>{news.headline}</h6></a>}
+                                        />
+                                    </ListItem>
+                                ))}
+                                
+                            </List>
+                        </div>
                     </Grid>
-                ))}
+                </Grid>
             </div>
         )
     }

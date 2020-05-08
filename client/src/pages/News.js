@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const News = () => {
+const News = ({ source }) => {
     const classes = useStyles();
 
     return (
         <Grid container component="main" className={classes.root}>
-            <AllNewsContainer />
+            <AllNewsContainer source={source}/>
         </Grid>
     )
 
