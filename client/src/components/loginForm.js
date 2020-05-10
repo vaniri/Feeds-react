@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Avatar, Button, TextField, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios';
 
-const LogInForm = ({ classes, logInHandler }) => {
+const LoginForm = ({ classes }) => {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const history = useHistory();
+
+    let logInHandler = () => {
+      let path = '/sources';
+      history.push(path);
+    }
 
     let logInUser = async () => {
         try {
             const res = await axios.post('http://localhost:3001/login', { email, password });
-            console.log(res);
             if (res.data.message === "OK") {
                 console.log("user Log in successfully");
                 localStorage.token = res.data.token;
                 localStorage.userId = res.data.userId;
-                localStorage.username = res.data.userName;
+                localStorage.username = res.data.username;
                 logInHandler();
             } else {
                 console.log("FAIL log in");
@@ -69,7 +75,7 @@ const LogInForm = ({ classes, logInHandler }) => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onSubmit={handleSubmit}
+                onChange={handleSubmit}
               >
                 Sign In
               </Button>
@@ -78,4 +84,4 @@ const LogInForm = ({ classes, logInHandler }) => {
     );
   }
 
-  export default LogInForm;
+  export default LoginForm;

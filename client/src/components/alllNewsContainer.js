@@ -32,7 +32,6 @@ class AllNewsContainer extends Component {
     }
 
     render() {
-        console.log(this.state.news)
         return (
             <div>
                 <Grid container spacing={0}>

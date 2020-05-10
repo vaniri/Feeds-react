@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LogInForm from '../components/loginForm';
 import CreateUserForm from '../components/createUserForm';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,15 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-    const isAlreadyAuthorized = !!localStorage.token;
-    const [isAuthorized, setAuthorized] = useState(isAlreadyAuthorized);
     const classes = useStyles();
-
-    let cleanStorage = () => {
-        localStorage.token = "";
-        localStorage.userId = "";
-    }
-
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -53,14 +45,13 @@ const Home = () => {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <LogInForm
                     classes={classes}
-                    logInHandler={() => setAuthorized(true)} /> 
+                /> 
                 <CreateUserForm
                     classes={classes}
-                    logInHandler={() => setAuthorized(true)} />
+                />
             </Grid>
         </Grid>
     )
-
 }
 
 export default Home;

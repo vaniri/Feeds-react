@@ -82,9 +82,8 @@ app.route('/user')
     .post(async (req, res) => {
         try {
             req.body.password = await argon2.hash(req.body.password);
-            let result = await db.User.create(req.body);
-            let UserId = result._id;
-            res.json({ message: "OK", result, userId: UserId, token: makeToken(UserId) });
+            let user = await db.User.create(req.body);
+            res.json({ message: "OK", user, token: makeToken(user._id) });
         } catch (err) {
             console.log("Error creating new user", err);
             res.json({ message: "FAIL", reason: err });
@@ -102,6 +101,7 @@ app.post('/login',
     async (req, res) => {
         try {
             let user = await db.User.findOne({ email: req.body.email });
+
             if (!user) {
                 console.log("No user found!");
                 res.json({ message: "FAIL", reason: "No user found" });
@@ -116,7 +116,7 @@ app.post('/login',
             }
 
             console.log("Login Successful!");
-            res.json({ message: "OK", userId: user.id, token: makeToken(user.id) });
+            res.json({ message: "OK", username: user.username, userId: user._id, token: makeToken(user._id) });
         } catch (err) {
             console.log("Error logging in:", err);
             res.json({ message: "FAIL", reason: err });
@@ -157,7 +157,6 @@ let updateFeeds = async () => {
             let parser = new Parser();
             const news = await parser.parseURL(source.url);
             insertNews(news);
-            console.log("Successfully update feeds");
         } catch (err) {
             console.log("FAIL updating feed", source.url, err);
         }

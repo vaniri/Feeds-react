@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CommentSchema = new Schema({
-    commentBody: String,
+    body: String,
     posted: {
         type: Date,
         default: Date.now

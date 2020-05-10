@@ -25,14 +25,13 @@ button {
 }
 
 #nav {
-    padding: 1em;
-    border-bottom: solid 0.05em gray;
+  padding: 1em;
+  border-bottom: solid 0.05em gray;
 }
 
 #source {
   display: grid;
   grid-template-columns: 70% 30%;
-
 }
 
 #source-container {
@@ -58,12 +57,35 @@ h6 {
   margin-left: 1em;
 }
 
-.news-link{
+.news-link {
   text-decoration: none;
   color: rgb(4, 62, 66);
 }
 
-.news-link:hover{
+.news-link:hover {
   text-decoration: none;
   color: rgb(7, 127, 136);
+}
+
+.card {
+  display: flex;
+}
+
+.cardDetails {
+  flex: 1;
+}
+
+.cardMedia {
+  width: 160;
+}
+
+.news-info {
+  margin-bottom: 3em;;
+}
+
+.comment-form {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 1em;
+  width: 50%;
 }

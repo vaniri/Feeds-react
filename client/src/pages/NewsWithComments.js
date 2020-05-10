@@ -1,15 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import SourcesContainer from '../components/sourcesContainer';
-import AddFeedForm from '../components/addFeedContainer';
+import NewsContainer from '../components/newsContainer';
+import CommentsContainer  from '../components/comentsContainer';
 import '../style/index.css';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-       width: '100%',
-    },
+
     image: {
         backgroundImage: 'url(https://source.unsplash.com/random)',
         backgroundRepeat: 'no-repeat',
@@ -18,18 +16,25 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
+    source: {
+        display: 'grid',
+        gridTemplateColumns: 'auto',
+        width: '100%',
+        textAlign: 'start',
+        margin: '1em  2em'
+    }
 }));
 
-const Sources = () => {
+const NewsWithComments = ({ newsId }) => {
     const classes = useStyles();
 
     return (
-        <Grid container component="main" className={classes.root} id="source">
+        <Grid container component="main" className={classes.source}>
             <Grid>
-                <SourcesContainer />
+                <NewsContainer newsId={newsId}/>
             </Grid>
             <Grid>
-                <AddFeedForm />
+                <CommentsContainer  newsId={newsId}/> 
             </Grid>
             
         </Grid>
@@ -37,4 +42,4 @@ const Sources = () => {
 
 }
 
-export default Sources;
+export default NewsWithComments;
