@@ -23,7 +23,7 @@ class CommentsContainer extends Component {
         }
     }
 
-    postComment = async (comment) => {
+    postComment = async () => {
         let body = this.commentForm.value;
         try {
             let res = await axios.post('http://localhost:3001/comments',
@@ -41,14 +41,16 @@ class CommentsContainer extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        let comment = {
-            body: this.commentForm.value,
-            author: { username: localStorage.username },
-            posted: new Date()
-        };
-        this.setState({ comments: [...this.state.comments, comment] });
-        this.postComment(comment);
-        this.commentForm.value = "";
+        if(this.commentForm.value !== "") {
+            let comment = {
+                body: this.commentForm.value,
+                author: { username: localStorage.username },
+                posted: new Date()
+            };
+            this.setState({ comments: [...this.state.comments, comment] });
+            this.postComment(comment);
+            this.commentForm.value = "";
+        }
     }
 
     componentDidMount() {
@@ -58,38 +60,33 @@ class CommentsContainer extends Component {
     render() {
         return (
             <div>
-                <Grid item xs={12} md={6}>
-                    {!this.state.comments ? <div></div> : (
-                        <Grid>
-                            {this.state.comments.map(comment => (
-                                <CardActionArea component="a" href="#">
-                                    <Card className="card">
-                                        <div className="cardDetails">
-                                            <CardContent>
-                                                <Typography component="h2" variant="h5">
-                                                    {comment.author.username}
-                                                </Typography>
-                                                <Typography variant="subtitle1" color="textSecondary">
-                                                    {new Date(comment.posted).toLocaleString()}
-                                                </Typography>
-                                                <Typography variant="subtitle1" paragraph>
-                                                    {comment.body}
-                                                </Typography>
-                                                <Typography variant="subtitle1" color="primary">
-                                                    Continue reading...
-                                        </Typography>
-                                            </CardContent>
-                                        </div>
-                                        <Hidden xsDown>
-                                            <CardMedia className="cardMedia" image="image" />
-                                        </Hidden>
-                                    </Card>
-                                </CardActionArea>
-                            ))}
-                        </Grid>
-                    )}
-                    <Grid className="comment-form">
+                {this.state.comments.map(comment => (
+                    <Grid md={7}>
+                        <Card className="card" >
+                            <CardMedia
+                                className=""
+                                title="" >
+                                <img className="avatar" src={'https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg'} />
+                            </CardMedia>
+                            <CardContent>
+                                <Typography variant="subtitle1">
+                                    {comment.author.username}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    {new Date(comment.posted).toLocaleString()}
+                                </Typography>
+                                <Typography variant="subtitle1" paragraph>
+                                    {comment.body}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+
+                <Grid id="comment-form" md={7}>
+                    <Grid>
                         <TextField
+                            id="comment-input"
                             type="text"
                             onSubmit={this.handleSubmit}
                             inputRef={fc => this.commentForm = fc}
@@ -97,15 +94,18 @@ class CommentsContainer extends Component {
                             required
                         >
                         </TextField>
-                        <Button 
-                         type="submit"
-                         fullWidth
-                         variant="contained"
-                         color="primary"
-                         className="submit"
-                         onClick={this.handleSubmit}
-                         >
-                         SUBMIT 
+                    </Grid>
+                    <Grid>
+                        <Button
+                            id="leave-comment"
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="submit"
+                            onClick={this.handleSubmit}
+                        >
+                            SUBMIT
                         </Button>
                     </Grid>
                 </Grid>
@@ -115,5 +115,3 @@ class CommentsContainer extends Component {
 }
 
 export default CommentsContainer;
-
-

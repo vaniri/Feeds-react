@@ -67,14 +67,6 @@ h6 {
   color: rgb(7, 127, 136);
 }
 
-.card {
-  display: flex;
-}
-
-.cardDetails {
-  flex: 1;
-}
-
 .cardMedia {
   width: 160;
 }
@@ -83,9 +75,72 @@ h6 {
   margin-bottom: 3em;;
 }
 
-.comment-form {
+.MuiCard-root{
+  box-shadow: none;
   display: grid;
-  grid-template-columns: auto;
-  grid-gap: 1em;
+  grid-template-columns: 30% 60%;
+  margin-top: 3em;
+}
+
+.MuiGrid-grid-md-7 {
+  border: none;
+  margin: 1em 7em;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(145, 141, 141, 0.19);
+  
+}
+.avatar {
+  width: 100%;
+}
+
+#comment-form {
+display: grid;
+grid-template-columns: auto;
+grid-gap: 1em;
+margin: 4em 7em;
+box-shadow: none;
+}
+
+#comment-input {
+  background-color: white;
+   height: 100px;
+   padding: 1em;
+   border: none;
+   box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(145, 141, 141, 0.19);
+}
+
+.MuiTextField-root,
+.MuiInputBase-root, 
+.MuiInput-root {
+  border: solid 0.05em rgb(230, 229, 229);
+  margin: 0 auto;
+  display: block;
+  padding: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.news-info{
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(145, 141, 141, 0.19);
+  width: 85%;
+  margin: 1em auto;
+  padding: 1em;
+  background-color: white;
+}
+
+.MuiPaper-elevation1,
+.MuiPaper-rounded {
+box-shadow: none;
+}
+
+#leave-comment {
+  background: linear-gradient(45deg, rgb(109, 107, 254) 30%, #FF8E53 90%);
   width: 50%;
+  margin: 0 auto;
+}
+
+#leave-comment:hover {
+  background: none;
+  background-color: rgb(109, 107, 254);
+  cursor: pointer;
+  color: black;
 }

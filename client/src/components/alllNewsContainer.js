@@ -46,7 +46,6 @@ class AllNewsContainer extends Component {
                                         />
                                     </ListItem>
                                 ))}
-                                
                             </List>
                         </div>
                     </Grid>
