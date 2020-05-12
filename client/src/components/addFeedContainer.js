@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        background: 'linear-gradient(45deg, lightgreen 30%, aqua 90%)',
+        background: 'linear-gradient(45deg, rgb(109, 107, 254) 30%, #FF8E53 90%)',
         color: 'black'
     }
 }));

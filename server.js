@@ -140,8 +140,8 @@ let getFeed = async (url) => {
     try {
         let parser = new Parser();
         const news = await parser.parseURL(url.url);
+        console.log(news)
         await db.Source.create({ "name": news.title, "img": news.image ? news.image.url : "", "url": url.url });
-        insertNews(news);
     } catch (err) {
         console.log("Error updating feed", url, err);
         if (err.code !== 11000) { //11000 is the duplicate key error code

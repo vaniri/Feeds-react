@@ -5,7 +5,7 @@ button {
   color: white;
   height: 48;
   padding: 0 30px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3),
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
 }
 
 .link {
@@ -30,8 +30,9 @@ button {
 }
 
 #source {
+  width: 100%;
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 50% 50%;
 }
 
 #source-container {
@@ -51,10 +52,6 @@ button {
 h6 {
   font-size: 15px;
   line-height: 0;
-}
-
-.MuiSvgIcon-root {
-  margin-left: 1em;
 }
 
 .news-link {
@@ -139,8 +136,11 @@ box-shadow: none;
 }
 
 #leave-comment:hover {
-  background: none;
   background-color: rgb(109, 107, 254);
   cursor: pointer;
-  color: black;
+  color: balck;
+}
+
+.makeStyles-paper-162 {
+  margin: 4em 0 !important; 
 }

@@ -8,30 +8,31 @@ import '../style/index.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-       width: '100%',
+        width: '100%',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: 'url(https://source.unsplash.com/random/?news)',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
+        backgroundPosition: 'top',
+        minHeight: '100%'
+    }
 }));
 
 const Sources = () => {
     const classes = useStyles();
 
     return (
-        <Grid container component="main" className={classes.root} id="source">
-            <Grid>
+        <Grid container component="main" className={classes.root}>
+            <Grid id="source" item xs={12} md={12}>
+                <Grid>
                 <SourcesContainer />
-            </Grid>
-            <Grid>
                 <AddFeedForm />
+                </Grid>
+                <Grid className={classes.image} item xs={12} md={12}></Grid>
             </Grid>
-            
         </Grid>
     )
 
