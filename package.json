@@ -19,5 +19,13 @@
     "express-jwt": "5.3.3",
     "mongoose": "5.9.10",
     "rss-parser": "3.7.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaniri/Feeds-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vaniri/Feeds-react/issues"
+  },
+  "homepage": "https://github.com/vaniri/Feeds-react#readme"
 }

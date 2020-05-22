@@ -3,7 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, Avatar, Grid, Typography } from '@material-ui/core';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import '../style/index.css';
+import '../../style/index.css';
 
 class SouresContainer extends Component {
     constructor(props) {

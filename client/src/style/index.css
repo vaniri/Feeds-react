@@ -72,6 +72,10 @@ h6 {
   margin-bottom: 3em;;
 }
 
+.demo {
+  margin: 1em 2em;
+}
+
 .MuiCard-root{
   box-shadow: none;
   display: grid;
@@ -87,6 +91,7 @@ h6 {
 }
 .avatar {
   width: 100%;
+  height: 100%;
 }
 
 #comment-form {
@@ -131,7 +136,7 @@ box-shadow: none;
 
 #leave-comment {
   background: linear-gradient(45deg, rgb(109, 107, 254) 30%, #FF8E53 90%);
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -143,4 +148,48 @@ box-shadow: none;
 
 .makeStyles-paper-162 {
   margin: 4em 0 !important; 
+}
+
+.MuiGrid-grid-md-7 {
+    display: grid;
+    grid-template-columns: 15% 70%;
+    grid-gap: 1em;
+    box-shadow: none;
+    margin-top: 2em;
+}
+
+.comment-author {
+  color: lightseagreen;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 12px;
+  color: gray;
+}
+
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+.news-headline {
+  font-size: 25px;
+  font-weight: 600;
+  color: navy;
+  padding: 0;
+  margin: 1em 0;
+}
+
+h7 {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(9, 112, 107);
+  padding: 0;
+  margin: 1em 0;
+}
+
+.comment-body {
+  margin-top: 2em;
 }

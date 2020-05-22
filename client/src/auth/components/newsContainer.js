@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid } from '@material-ui/core';
+import '../../style/index.css';
 
 class NewsContainer extends Component {
     constructor(props) {
@@ -31,10 +32,10 @@ class NewsContainer extends Component {
         return (
             <div>
                 <Grid className="news-info" maxWidth="sm">
-                        <h6>{this.state.news.headline}</h6>
-                        <p>{this.state.news.author}</p>
-                        <p>{this.state.news.pubDate}</p>
-                        <p>{this.state.news.summary}</p>
+                        <h6 className="news-headline">{this.state.news.headline}</h6>
+                        <h7>{this.state.news.author}</h7>
+                        <p className="date">{this.state.news.pubDate}</p>
+                        <p className="comment-body">{this.state.news.summary}</p>
                         <a href={this.state.news.url}>read more...</a>
                 </Grid>
             </div>

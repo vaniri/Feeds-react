@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import '../style/index.css';
+import '../../style/index.css';
 
 class AllNewsContainer extends Component {
     constructor(props) {

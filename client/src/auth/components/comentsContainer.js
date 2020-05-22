@@ -62,28 +62,18 @@ class CommentsContainer extends Component {
             <div>
                 {this.state.comments.map(comment => (
                     <Grid md={7}>
-                        <Card className="card" >
-                            <CardMedia
-                                className=""
-                                title="" >
+                        <Grid>
                                 <img className="avatar" src={'https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg'} />
-                            </CardMedia>
-                            <CardContent>
-                                <Typography variant="subtitle1">
-                                    {comment.author.username}
-                                </Typography>
-                                <Typography variant="subtitle1" color="textSecondary">
-                                    {new Date(comment.posted).toLocaleString()}
-                                </Typography>
-                                <Typography variant="subtitle1" paragraph>
-                                    {comment.body}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                            </Grid>
+                            <Grid className="comment">
+                                    <h5 className="comment-author">{comment.author.username}</h5>
+                                    <p className="date">{new Date(comment.posted).toLocaleString()}</p>
+                                    <p>{comment.body}</p>
+                            </Grid>
                     </Grid>
                 ))}
 
-                <Grid id="comment-form" md={7}>
+                <Grid id="comment-form" md={3}>
                     <Grid>
                         <TextField
                             id="comment-input"

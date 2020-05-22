@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { makeStyles, Typography, Breadcrumbs, Link } from '@material-ui/core';
+import { makeStyles, Typography, Breadcrumbs, Button, Link } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
-import '../style/index.css';
+import '../../style/index.css';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = ({ logoutHandler }) => {
   const classes = useStyles();
 
   return (
@@ -37,6 +37,8 @@ const NavBar = () => {
         <GrainIcon className={classes.icon} />
         Breadcrumb
       </Typography>
+      <Button id="logout-button" type="submit" onClick={logoutHandler}>Log out
+      </Button>
     </Breadcrumbs>
   );
 }
