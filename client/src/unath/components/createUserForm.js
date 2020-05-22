@@ -5,17 +5,12 @@ import { Avatar, Button, TextField, Grid, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
-const CreateUserForm = ({ classes }) => {
+const CreateUserForm = ({ classes, loginHandler  }) => {
 
     const [ username, setUsername ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const history = useHistory();
-
-    let logInHandler = () => {
-      let path = '/sources';
-      history.push(path);
-    }
 
     let createUser = async () => {
         try {
@@ -25,7 +20,7 @@ const CreateUserForm = ({ classes }) => {
                 localStorage.token = res.data.token;
                 localStorage.username = res.data.user.username;
                 localStorage.userId = res.data.user.userId;
-                logInHandler();
+                loginHandler();
             } else {
                 console.log("FAIL creating new user", res.err);
             }

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Home = () => {
+const Home = ({ loginHandler }) => {
     const classes = useStyles();
 
     return (
@@ -45,9 +45,11 @@ const Home = () => {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <LogInForm
                     classes={classes}
+                    loginHandler={loginHandler}
                 /> 
                 <CreateUserForm
                     classes={classes}
+                    loginHandler={loginHandler}
                 />
             </Grid>
         </Grid>

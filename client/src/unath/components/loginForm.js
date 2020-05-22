@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Avatar, Button, TextField, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios';
 
-const LoginForm = ({ classes }) => {
+const LoginForm = ({ classes, loginHandler }) => {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const history = useHistory();
-
-    let logInHandler = () => {
-      let path = '/sources';
-      history.push(path);
-    }
 
     let logInUser = async () => {
         try {
@@ -22,7 +15,7 @@ const LoginForm = ({ classes }) => {
                 localStorage.token = res.data.token;
                 localStorage.userId = res.data.userId;
                 localStorage.username = res.data.username;
-                logInHandler();
+                loginHandler();
             } else {
                 console.log("FAIL log in");
             }
