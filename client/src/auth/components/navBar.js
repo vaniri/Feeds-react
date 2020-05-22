@@ -1,46 +1,94 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { makeStyles, Typography, Breadcrumbs, Button, Link } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
-import GrainIcon from '@material-ui/icons/Grain';
 import '../../style/index.css';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, Menu, Toolbar, Typography, IconButton, Switch, FormControlLabel, FormGroup, MenuItem, Link } from '@material-ui/core';
+import MdRssFeed from '@material-ui/icons/RssFeed';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
-  link: {
-    display: 'flex',
+  root: {
+    flexGrow: 1,
   },
-  icon: {
-    marginRight: theme.spacing(0.5),
-    width: 20,
-    height: 20,
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
   },
 }));
 
 const NavBar = ({ logoutHandler }) => {
   const classes = useStyles();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <Breadcrumbs id="nav" aria-label="breadcrumb">
-        <Link color="inherit"
-        className={`nav_item ${window.location.pathname === '/' ? 'active' : ""}`} href='/home'>
-        <HomeIcon className={classes.icon} />
-        Home
-        </Link>
-      <Link
-        color="inherit"
-        className={`nav_item ${window.location.pathname === '/sources' ? 'active' : ""}`} href='/sources'>
-        <WhatshotIcon className={classes.icon} />
-        Sources
-      </Link>
-      <Typography color="textPrimary" className={classes.link}>
-        <GrainIcon className={classes.icon} />
-        Breadcrumb
-      </Typography>
-      <Button id="logout-button" type="submit" onClick={logoutHandler}>Log out
-      </Button>
-    </Breadcrumbs>
+    <div className={classes.root}>
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch checked={auth} onChange={logoutHandler} aria-label="login switch" />}
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            <Link
+              color="inherit"
+              className={`nav_item ${window.location.pathname === '/' ? 'active' : ""}`} href='/sources'>
+              <MdRssFeed />
+              Sources
+           </Link>
+          </Typography>
+          {auth && (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
-
+      
 export default NavBar;

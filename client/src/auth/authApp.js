@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
 import NavBar from './components/navBar';
-import Home from './pages/Home';
 import Sources from './pages/Sources';
 import News from './pages/News';
 import NewsWithComments from './pages/NewsWithComments';
@@ -34,11 +33,8 @@ const authoApp = ({ logoutHandler }) => {
           <Route path='/source/:source'>
             <AllNews />
           </Route>
-          <Route path='/sources'>
-            <Sources />
-          </Route>
           <Route path='/'>
-            <Home />
+          <Sources />
           </Route>
         </Switch>
       </div>

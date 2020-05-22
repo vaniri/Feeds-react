@@ -34,12 +34,11 @@ class AllNewsContainer extends Component {
     render() {
         return (
             <div>
-                <Grid container spacing={0}>
-                    <Grid item xs={12} md={12}>
-                        <div className="demo">
+                <Grid item xs={12} md={12}>
+                        <div id="demo">
                             <List>
                                 {this.state.news.map(news => (
-                                    <ListItem className="news-container" id="news">
+                                    <ListItem className="news-li">
                                         <MoreHorizIcon />
                                         <ListItemText
                                             primary={<a className="news-link" href={`/news/${news._id}`}><h6>{news.headline}</h6></a>}
@@ -48,7 +47,6 @@ class AllNewsContainer extends Component {
                                 ))}
                             </List>
                         </div>
-                    </Grid>
                 </Grid>
             </div>
         )

@@ -45,23 +45,28 @@ button {
   font-size: 20px;
 }
 
-#news {
-  padding: 0;
-}
-
 h6 {
   font-size: 15px;
   line-height: 0;
 }
 
+.news-li{
+  padding: 0 !important;
+}
+
+
 .news-link {
   text-decoration: none;
-  color: rgb(4, 62, 66);
+  color: rgb(50, 81, 173);
+  font-weight: 800;
+  font-size: 20px;
+  padding: 0;
+  margin: 0.01px;
 }
 
 .news-link:hover {
   text-decoration: none;
-  color: rgb(7, 127, 136);
+  color: rgb(14, 112, 224);
 }
 
 .cardMedia {
@@ -72,8 +77,17 @@ h6 {
   margin-bottom: 3em;;
 }
 
-.demo {
-  margin: 1em 2em;
+#demo {
+  margin: 2em auto;
+  padding: 2em;
+  text-align: justify;
+  background: linear-gradient(90deg, lavenderblush, lavender); 
+  color: black;
+  width: 60%;
+}
+
+#source-container {
+  margin: 2em;
 }
 
 .MuiCard-root{
@@ -192,4 +206,18 @@ h7 {
 
 .comment-body {
   margin-top: 2em;
+}
+
+#logout-button {
+  float: right !important;
+}
+
+.MuiLink-underlineHover,
+.nav_item {
+  color: orangered;
+}
+
+.MuiLink-underlineHover:hover  {
+text-decoration: none !important;
+color: orchid;
 }

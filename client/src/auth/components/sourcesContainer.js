@@ -34,7 +34,7 @@ class SouresContainer extends Component {
             <div id="sources_container">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <div className="demo">
+                        <div id="source-container">
                             <List>
                                 {this.state.sources.map(source => (
                                     <ListItem>

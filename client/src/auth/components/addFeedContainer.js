@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, Button, TextField, Typography } from '@material-ui/core';
-import RssFeedIcon from '@material-ui/icons/RssFeed';
+import { Button, TextField, Typography } from '@material-ui/core';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -54,7 +53,7 @@ const AddFeedForm = () => {
     return (
         <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-                add new Feed  <RssFeedIcon />
+                add new Feed 
             </Typography>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
