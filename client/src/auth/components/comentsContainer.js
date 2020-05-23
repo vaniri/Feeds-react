@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Grid, Typography, Card, CardActionArea, CardContent, CardMedia, Hidden, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, Paper, } from '@material-ui/core';
+import { AccountBox, Comment } from '@material-ui/icons';
 
 class CommentsContainer extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class CommentsContainer extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        if(this.commentForm.value !== "") {
+        if (this.commentForm.value !== "") {
             let comment = {
                 body: this.commentForm.value,
                 author: { username: localStorage.username },
@@ -63,42 +64,36 @@ class CommentsContainer extends Component {
                 {this.state.comments.map(comment => (
                     <Grid md={7}>
                         <Grid>
-                                <img className="avatar" src={'https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg'} />
-                            </Grid>
-                            <Grid className="comment">
-                                    <h5 className="comment-author">{comment.author.username}</h5>
-                                    <p className="date">{new Date(comment.posted).toLocaleString()}</p>
-                                    <p>{comment.body}</p>
-                            </Grid>
+                            <h5 className="comment-author"><AccountBox /> {comment.author.username}</h5>
+                            <p className="date">{new Date(comment.posted).toLocaleString()}</p>
+                            <p><Comment /> {comment.body}</p>
+                        </Grid>
                     </Grid>
                 ))}
-
-                <Grid id="comment-form" md={3}>
-                    <Grid>
-                        <TextField
-                            id="comment-input"
-                            type="text"
-                            onSubmit={this.handleSubmit}
-                            inputRef={fc => this.commentForm = fc}
-                            placeholder="type here..."
-                            required
-                        >
-                        </TextField>
-                    </Grid>
-                    <Grid>
-                        <Button
-                            id="leave-comment"
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className="submit"
-                            onClick={this.handleSubmit}
-                        >
-                            SUBMIT
+                <Paper style={{ padding: 16, marginTop: '5em', border: 'solid 0.05em orchid', boxShadow: 'none' }}>
+                    <Grid container>
+                        <Grid xs={10} md={11} item style={{ paddingRight: 16 }}>
+                            <TextField style={{  }}
+                                id="comment-input"
+                                type="text"
+                                onSubmit={this.handleSubmit}
+                                inputRef={fc => this.commentForm = fc}
+                                placeholder="type here..."
+                            />
+                        </Grid>
+                        <Grid xs={2} md={1} item>
+                            <Button
+                                id="comment-button"
+                                fullWidth
+                                color="secondary"
+                                variant="outlined"
+                                onClick={this.handleSubmit}
+                            >
+                                SUBMIT 
                         </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Paper>
             </div>
         )
     }

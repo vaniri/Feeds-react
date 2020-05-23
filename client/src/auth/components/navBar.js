@@ -56,6 +56,7 @@ const NavBar = ({ logoutHandler }) => {
           {auth && (
             <div>
               <IconButton
+                id="nav-avatar"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"

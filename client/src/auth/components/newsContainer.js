@@ -31,7 +31,7 @@ class NewsContainer extends Component {
     render() {
         return (
             <div>
-                <Grid className="news-info" maxWidth="sm">
+                <Grid className="news-info">
                         <h6 className="news-headline">{this.state.news.headline}</h6>
                         <h7>{this.state.news.author}</h7>
                         <p className="date">{this.state.news.pubDate}</p>

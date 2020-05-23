@@ -18,10 +18,8 @@ const useStyles = makeStyles((theme) => ({
     },
     source: {
         display: 'grid',
-        gridTemplateColumns: 'auto',
-        width: '100%',
-        textAlign: 'start',
-        margin: '1em  2em'
+        width: '70%',
+        margin: '1em  auto'
     }
 }));
 
