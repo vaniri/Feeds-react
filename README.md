@@ -17,3 +17,9 @@ Users can create an account and add their favotire rss-feeds to read them all fr
 * MongoDB
 * Material UI
 * authentication bild with argon 2, express-jvt and jsonwebtoken
+
+![GitHub Logo](https://habrastorage.org/webt/lm/wa/h_/lmwah_hvcbk-5x4s3zqppz8x3sk.png)
+
+![GitHub Logo](https://habrastorage.org/webt/y9/xe/aj/y9xeajcu-8q5eofnpgdcsejj2vi.png)
+
+![GitHub Logo](https://habrastorage.org/webt/od/hh/vo/odhhvor1i8yhmo_plowm9knddgm.png)
