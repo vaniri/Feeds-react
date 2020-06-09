@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { Avatar, Button, TextField, Grid, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -14,7 +15,7 @@ const CreateUserForm = ({ classes, loginHandler  }) => {
 
     let createUser = async () => {
         try {
-            let res = await axios.post('http://localhost:3001/user', { username, email, password });
+            let res = await axios.post(apiUrl('/api/user'), { username, email, password });
             if (res.data.message === "OK") {
                 console.log("User create successfully");
                 localStorage.token = res.data.token;

@@ -182,6 +182,7 @@ async function insertNews(news) {
     }
 }
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log('app listening at http://localhost:3000');
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`app listening at http://localhost:${PORT}`);
 });

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,7 @@ const AddFeedForm = () => {
 
     let saveFeed = async () => {
         try {
-            const res = await axios.post('http://localhost:3001/sources', { url });
+            const res = await axios.post(apiUrl('/api/sources'), { url });
             if (res.data.message === "OK") {
                 console.log("feed save successfully");
             } else {

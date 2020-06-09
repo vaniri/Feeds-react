@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Button, TextField, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 
 const LoginForm = ({ classes, loginHandler }) => {
     const [ email, setEmail ] = useState("");
@@ -9,7 +10,7 @@ const LoginForm = ({ classes, loginHandler }) => {
 
     let logInUser = async () => {
         try {
-            const res = await axios.post('http://localhost:3001/login', { email, password });
+            const res = await axios.post(apiUrl('/api/login'), { email, password });
             if (res.data.message === "OK") {
                 console.log("user Log in successfully");
                 localStorage.token = res.data.token;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { Container, responsiveFontSizes } from '@material-ui/core';
 
 const SingleNewsContainer = () => {
@@ -8,7 +9,7 @@ const SingleNewsContainer = () => {
 
     const showNews = async () => {
         try {
-            let news = await axios.get('api/source/:source');
+            let news = await axios.get(apiUrl('api/source/:source'));
             if (res.message === "OK") {
                 console.log("Successfully got news data")
                 setNews(news);

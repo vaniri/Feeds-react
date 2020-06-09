@@ -1,10 +1,7 @@
-$("#slideshow > div:gt(0)").hide();
-
-setInterval(function () {
-    $('#slideshow > div:first')
-        .fadeOut(2000)
-        .next()
-        .fadeIn(2000)
-        .end()
-        .appendTo('#slideshow');
-}, 2000);
+export function apirl (path) {
+    if (window.location.hostname === "localhost") {
+        return 'http://localhost:3001' + path;
+    } else {
+        return path;
+    }
+}

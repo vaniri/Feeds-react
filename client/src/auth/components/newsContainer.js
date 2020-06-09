@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { Grid } from '@material-ui/core';
 import '../../style/index.css';
 
@@ -12,7 +13,7 @@ class NewsContainer extends Component {
 
     showNews = async () => {
         try {
-            let res = await axios.get(`http://localhost:3001/news/${this.newsId.newsId}`);
+            let res = await axios.get(api(`/api/news/${this.newsId.newsId}`));
             if (res.data.message === "OK") {
                 console.log("Successfully got news data");
                 this.setState({ news: res.data.newsObj });

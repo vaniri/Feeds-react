@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
+import { apiUrl } from '../../utils';
 import { List, ListItem, ListItemText, Avatar, Grid, Typography } from '@material-ui/core';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import '../../style/index.css';
@@ -13,7 +14,7 @@ class SouresContainer extends Component {
 
     getSources = async () => {
         try {
-            let res = await axios.get('http://localhost:3001/sources');
+            let res = await axios.get(apiUrl('/api/sources'));
             if (res.data.message === "OK") {
                 console.log("Soorces recived successfully");
                 this.setState({ sources: res.data.sources });
@@ -42,6 +43,7 @@ class SouresContainer extends Component {
                                             <Avatar alt={source.name} src={source.img} />
                                         </ListItemAvatar>
                                         <ListItemText
+                                            id="source"
                                             primary={<a href={`/source/${source._id}`}>{source.name}</a>}
                                         />
                                     </ListItem>

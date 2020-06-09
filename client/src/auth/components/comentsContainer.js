@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { Grid, TextField, Button, Paper, } from '@material-ui/core';
 import { AccountBox, Comment } from '@material-ui/icons';
 
@@ -12,7 +13,7 @@ class CommentsContainer extends Component {
 
     getComments = async () => {
         try {
-            let res = await axios.get(`http://localhost:3001/news/${this.newsId.newsId}`);
+            let res = await axios.get(apiUrl(`/api/news/${this.newsId.newsId}`));
             if (res.data.message === "OK") {
                 console.log("Successfully got comments data");
                 this.setState({ comments: res.data.newsObj.comments });
@@ -27,7 +28,7 @@ class CommentsContainer extends Component {
     postComment = async () => {
         let body = this.commentForm.value;
         try {
-            let res = await axios.post('http://localhost:3001/comments',
+            let res = await axios.post(apiUrl('/api/comments'),
                 { body, newsItem: this.newsId.newsId },
                 { headers: { 'Authorization': `Bearer ${localStorage.token}` } });
             if (res.data.message === "OK") {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../utils';
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import '../../style/index.css';
@@ -13,7 +14,7 @@ class AllNewsContainer extends Component {
 
     showNews = async () => {
         try {
-            let res = await axios.get(`http://localhost:3001/source/${this.source.source}`)
+            let res = await axios.get(apiUrl(`/api/source/${this.source.source}`))
             if (res.data.message === "OK") {
                 console.log(res.data.news)
                 console.log("Successfully got news data");
