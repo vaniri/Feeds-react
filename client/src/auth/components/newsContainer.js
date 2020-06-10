@@ -13,7 +13,7 @@ class NewsContainer extends Component {
 
     showNews = async () => {
         try {
-            let res = await axios.get(api(`/api/news/${this.newsId.newsId}`));
+            let res = await axios.get(apiUrl(`/api/news/${this.newsId.newsId}`));
             if (res.data.message === "OK") {
                 console.log("Successfully got news data");
                 this.setState({ news: res.data.newsObj });

@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.route('/source/:source')
+app.route('/api/source/:source')
     .get(async (req, res) => {
         try {
             let source = await db.Source.findById(req.params.source).lean();
@@ -36,7 +36,7 @@ app.route('/source/:source')
         }
     })
 
-app.route('/sources')
+app.route('/api/sources')
     .get(async (req, res) => {
         try {
             let sources = await db.Source.find().lean();
@@ -56,7 +56,7 @@ app.route('/sources')
         }
     })
 
-app.route('/news/:id')
+app.route('/api/news/:id')
     .get(async (req, res) => {
         try {
             let news = await db.News.findOne({ "_id": req.params.id }).lean();
@@ -69,7 +69,7 @@ app.route('/news/:id')
         }
     })
 
-app.route('/user')
+app.route('/api/user')
     .get(async (req, res) => {
         try {
             let result = await db.User.find();
@@ -97,7 +97,7 @@ function makeToken(userId) {
     return jwt.sign({ userId }, jwtSecret);
 }
 
-app.post('/login',
+app.post('/api/login',
     async (req, res) => {
         try {
             let user = await db.User.findOne({ email: req.body.email });
@@ -123,7 +123,7 @@ app.post('/login',
         }
     })
 
-app.route('/comments')
+app.route('/api/comments')
     .post(
         expressJwt({ secret: jwtSecret }),
         async (req, res) => {
