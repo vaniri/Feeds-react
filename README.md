@@ -1,6 +1,6 @@
 # Feeds-react
 
-[Website](https://fitme-up.herokuapp.com/)
+[Website](https://feedsreact.herokuapp.com)
 
 ## Overview
 Stay tuned and read all your favorite news in one place with the rss-feeds web app! 
