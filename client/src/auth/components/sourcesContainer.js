@@ -14,6 +14,7 @@ class SouresContainer extends Component {
 
     getSources = async () => {
         try {
+            console.log(2)
             let res = await axios.get(apiUrl('/api/sources'));
             if (res.data.message === "OK") {
                 console.log("Soorces recived successfully");
@@ -27,10 +28,12 @@ class SouresContainer extends Component {
     }
 
     componentDidMount() {
+        console.log(3)
         this.getSources();
     }
 
     render() {
+        console.log(1)
         return (
             <div id="sources_container">
                 <Grid container spacing={2}>

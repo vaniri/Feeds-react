@@ -5,16 +5,19 @@ import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import '../../style/index.css';
 
+const count = 20;
+
 class AllNewsContainer extends Component {
     constructor(props) {
         super(props);
         this.state = { news: [] };
         this.source = props;
+        this.start = 0;
     }
 
     showNews = async () => {
         try {
-            let res = await axios.get(apiUrl(`/api/source/${this.source.source}`))
+            let res = await axios.get(apiUrl(`/api/source/${this.source.source}`), { params: { count, start: this.start } });
             if (res.data.message === "OK") {
                 console.log(res.data.news)
                 console.log("Successfully got news data");
@@ -32,9 +35,11 @@ class AllNewsContainer extends Component {
         this.showNews();
     }
 
+
+
     render() {
         return (
-            <div>
+            <div className="allnews-container">
                 <Grid item xs={12} md={12}>
                         <div id="demo">
                             <List>

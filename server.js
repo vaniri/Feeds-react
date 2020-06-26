@@ -28,7 +28,7 @@ app.route('/api/source/:source')
     .get(async (req, res) => {
         try {
             let source = await db.Source.findById(req.params.source).lean();
-            let news = await db.News.find({ source: req.params.id }).lean();
+            let news = await db.News.find({ source: req.params.id }).skip(+req.query.start).limit(+req.query.count).lean();
             res.json({ message: "OK", source: source, news: news });
         } catch (err) {
             console.log("Error find news", err);

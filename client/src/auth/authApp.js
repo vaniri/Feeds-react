@@ -34,7 +34,7 @@ const authoApp = ({ logoutHandler }) => {
             <AllNews />
           </Route>
           <Route path='/'>
-          <Sources />
+            <Sources />
           </Route>
         </Switch>
       </div>
