@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { apiUrl } from '../../utils';
-import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
+import { Grid, Button, List, ListItem, ListItemText } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import '../../style/index.css';
 
 const count = 20;
@@ -31,11 +33,14 @@ class AllNewsContainer extends Component {
         }
     }
 
-    componentDidMount() {
+    loadNews = position => {
+        this.start = position;
         this.showNews();
     }
 
-
+    componentDidMount() {
+        this.showNews();
+    }
 
     render() {
         return (
@@ -54,6 +59,26 @@ class AllNewsContainer extends Component {
                             </List>
                         </div>
                 </Grid>
+                <Grid id="news-buttons-container">
+                <Button
+                    id="news-previous"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.loadNews(this.start > 0 ? this.start - count : this.start)}
+                >
+                    <ArrowLeftIcon/> Prev 
+              </Button>
+              <Button
+                    id="news-next"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.loadNews(this.start + count)}
+                >
+                    Next <ArrowRightIcon/>
+              </Button>
+              </Grid>
             </div>
         )
     }
