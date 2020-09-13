@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { apiUrl } from '../../utils';
 import { Grid, TextField, Button, Paper, } from '@material-ui/core';
 import { AccountBox, Comment } from '@material-ui/icons';
 
-class CommentsContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { comments: [] };
-        this.newsId = props;
-    }
+const CommentsContainer = ({ newsId }) => {
+    const [ comments, setComments] = useState([]);
+    const curRef = useRef(null);
 
-    getComments = async () => {
+    const getComments = async () => {
         try {
-            let res = await axios.get(apiUrl(`/api/news/${this.newsId.newsId}`));
+            let res = await axios.get(apiUrl(`/api/news/${newsId}`));
             if (res.data.message === "OK") {
                 console.log("Successfully got comments data");
-                this.setState({ comments: res.data.newsObj.comments });
+                setComments(res.data.newsObj.comments);
             } else {
                 console.log("Fail get comments data");
             }
@@ -25,11 +22,11 @@ class CommentsContainer extends Component {
         }
     }
 
-    postComment = async () => {
-        let body = this.commentForm.value;
+    const postComment = async () => {
+        let body = curRef.current.value;
         try {
             let res = await axios.post(apiUrl('/api/comments'),
-                { body, newsItem: this.newsId.newsId },
+                { body, newsItem: newsId },
                 { headers: { 'Authorization': `Bearer ${localStorage.token}` } });
             if (res.data.message === "OK") {
                 console.log("Successfully create a comment");
@@ -41,29 +38,28 @@ class CommentsContainer extends Component {
         }
     }
 
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault();
-        if (this.commentForm.value !== "") {
+        if (curRef.value !== "") {
             let comment = {
-                body: this.commentForm.value,
+                body: curRef.current.value,
                 author: { username: localStorage.username },
                 posted: new Date()
             };
-            this.setState({ comments: [...this.state.comments, comment] });
-            this.postComment(comment);
-            this.commentForm.value = "";
+            setComments([ ...comments, comment ]);
+            postComment(comment);
+            curRef.current.value  = "";
         }
     }
 
-    componentDidMount() {
-        this.getComments();
-    }
+    useEffect(() => {
+        getComments();
+    }, [])
 
-    render() {
         return (
             <div>
-                {this.state.comments.map(comment => (
-                    <Grid md={7}>
+                {comments.map(comment => (
+                    <Grid md={7} key={comment.id}>
                         <Grid>
                             <h5 className="comment-author"><AccountBox /> {comment.author.username}</h5>
                             <p className="date">{new Date(comment.posted).toLocaleString()}</p>
@@ -74,11 +70,11 @@ class CommentsContainer extends Component {
                 <Paper style={{ padding: 16, marginTop: '5em', border: 'solid 0.05em orchid', boxShadow: 'none' }}>
                     <Grid container>
                         <Grid xs={10} md={11} item style={{ paddingRight: 16 }}>
-                            <TextField style={{  }}
+                            <TextField
                                 id="comment-input"
                                 type="text"
-                                onSubmit={this.handleSubmit}
-                                inputRef={fc => this.commentForm = fc}
+                                inputRef={curRef}
+                                onSubmit={handleSubmit}
                                 placeholder="type here..."
                             />
                         </Grid>
@@ -88,7 +84,7 @@ class CommentsContainer extends Component {
                                 fullWidth
                                 color="secondary"
                                 variant="outlined"
-                                onClick={this.handleSubmit}
+                                onClick={handleSubmit}
                             >
                                 SUBMIT 
                         </Button>
@@ -97,7 +93,6 @@ class CommentsContainer extends Component {
                 </Paper>
             </div>
         )
-    }
 }
 
 export default CommentsContainer;
