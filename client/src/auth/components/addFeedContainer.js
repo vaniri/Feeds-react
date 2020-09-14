@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddFeedForm = () => {
+const AddFeedForm = ({ addHandler }) => {
     const [url, setUrl] = useState("");
     const classes = useStyles();
 
@@ -38,6 +38,7 @@ const AddFeedForm = () => {
             const res = await axios.post(apiUrl('/api/sources'), { url });
             if (res.data.message === "OK") {
                 console.log("feed save successfully");
+                addHandler();
             } else {
                 console.log("FAIL save feed");
             }

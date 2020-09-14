@@ -1,4 +1,3 @@
-import '../../style/index.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Menu, Toolbar, Typography, IconButton, Switch, FormControlLabel, FormGroup, MenuItem, Link } from '@material-ui/core';

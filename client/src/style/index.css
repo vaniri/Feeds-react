@@ -75,10 +75,8 @@ h6 {
 #demo {
   margin: 2em auto;
   padding: 2em;
-  text-align: justify;
-  background: linear-gradient(90deg, lavenderblush, lavender);
+  text-align: center;
   color: black;
-  width: 60%;
 }
 
 #source-container {
@@ -134,7 +132,7 @@ h6 {
   margin: 1em 0;
   margin-bottom: 3em;
   padding: 1.5em;
-  background: linear-gradient(90deg, lavenderblush, lavender);
+  background: lightgray;
   text-align: justify;
 }
 
