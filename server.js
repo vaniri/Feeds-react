@@ -28,7 +28,9 @@ app.route('/api/source/:source')
     .get(async (req, res) => {
         try {
             let source = await db.Source.findById(req.params.source).lean();
-            let news = await db.News.find({ source: req.params.id }).lean();
+            let news = await db.News.find({ source: source._id }).lean();
+            // console.log(source)
+            // console.log(news)
             res.json({ message: "OK", source: source, news: news });
         } catch (err) {
             console.log("Error find news", err);
@@ -140,7 +142,8 @@ let getFeed = async (url) => {
     try {
         let parser = new Parser();
         const news = await parser.parseURL(url.url);
-        await db.Source.create({ "name": news.title, "img": news.image ? news.image.url : "", "url": url.url });
+        const source = await db.Source.create({ "name": news.title, "img": news.image ? news.image.url : "", "url": url.url });
+        insertNews(news, source);
     } catch (err) {
         console.log("Error updating feed", url, err);
         if (err.code !== 11000) { //11000 is the duplicate key error code
@@ -155,7 +158,7 @@ let updateFeeds = async () => {
         try {
             let parser = new Parser();
             const news = await parser.parseURL(source.url);
-            insertNews(news);
+            insertNews(news, source);
         } catch (err) {
             console.log("FAIL updating feed", source.url, err);
         }
@@ -165,11 +168,18 @@ let updateFeeds = async () => {
 updateFeeds();
 setInterval(updateFeeds, 100 * 1000);
 
-async function insertNews(news) {
+async function insertNews(news, source) {
     try {
         news.items.forEach(async (item) => {
             try {
-                await db.News.create({ "headline": item.title, "author": item.creator, "pubDate": item.pubDate, "summary": item.contentSnippet, "url": item.link });
+                await db.News.create({ 
+                    "headline": item.title, 
+                    "author": item.creator, 
+                    "pubDate": item.pubDate, 
+                    "summary": item.contentSnippet, 
+                    "url": item.link,
+                    "source": source._id 
+                });
             } catch (err) {
                 if (err.code !== 11000) { //11000 is the duplicate key error code
                     throw err;
